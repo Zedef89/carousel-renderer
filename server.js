@@ -7,21 +7,25 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-app.use(express.json({ limit: "5mb" }));
+app.use(express.json({ limit: "10mb" }));
 
 // Serve il build di Vite
 app.use(express.static(path.join(__dirname, "dist")));
 
+// MAIN ENDPOINT: renderizza la slide
 app.post("/render", async (req, res) => {
   try {
     const { slide = 0, theme = "darkTech", data = {} } = req.body;
 
-    const url = `http://localhost:3000/?slide=${slide}&theme=${theme}&data=${encodeURIComponent(
+    const url = `http://localhost:${
+      process.env.PORT || 3000
+    }/?slide=${slide}&theme=${theme}&data=${encodeURIComponent(
       JSON.stringify(data)
     )}`;
 
     const browser = await puppeteer.launch({
       headless: "new",
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
       defaultViewport: { width: 1080, height: 1350 },
     });
@@ -38,6 +42,11 @@ app.post("/render", async (req, res) => {
     console.error("Errore render:", err);
     res.status(500).json({ error: "Render failed" });
   }
+});
+
+// Middleware SPA per servire index.html per TUTTO (Vite SPA fix)
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
 // Start server
