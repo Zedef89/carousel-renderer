@@ -1,12 +1,13 @@
 import React from "react";
 import SlideWrapper from "../components/SlideWrapper";
+import { Globe } from "lucide-react";
 
 export default function Cover({
   title,
   subtitle,
   label = "ARCHITECTURE_V.1.0",
   highlightWord = null,
-  website = "🌐 NICOLAMELE.COM",
+  website = "NICOLAMELE.COM",
   theme,
 }) {
   const devName = "FULL STACK & AI AUTOMATION";
@@ -109,22 +110,24 @@ export default function Cover({
         </p>
 
         {/* Website */}
+        {/* Website */}
         {website && (
           <div
             style={{
               marginTop: "50px",
+              display: "flex",
+              alignItems: "center",
+              gap: "14px",
               fontFamily: "monospace",
               fontSize: "32px",
               color: "#3B82F6",
-              opacity: 0.85,
-              textShadow: "0 0 18px rgba(59,130,246,0.6)",
+              opacity: 0.9,
+              textShadow: "0 0 15px rgba(59,130,246,0.6)",
               letterSpacing: "2px",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-              <GlobeIcon />
-              <span style={{ color: "#3B82F6" }}>{website}</span>
-            </div>
+            <Globe size={36} color="#3B82F6" />
+            {website}
           </div>
         )}
       </div>
