@@ -10,6 +10,15 @@ export default function Cover({
   theme,
 }) {
   const devName = "FULL STACK & AI AUTOMATION";
+
+  const GlobeIcon = () => (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="10" stroke="#3B82F6" strokeWidth="2" />
+      <path d="M2 12h20" stroke="#3B82F6" strokeWidth="2" />
+      <path d="M12 2c3 4 3 16 0 20" stroke="#3B82F6" strokeWidth="2" />
+    </svg>
+  );
+
   // Evidenzia una parola con glow
   const renderTitle = () => {
     if (!highlightWord) return title;
@@ -112,7 +121,10 @@ export default function Cover({
               letterSpacing: "2px",
             }}
           >
-            {website}
+            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+              <GlobeIcon />
+              <span style={{ color: "#3B82F6" }}>{website}</span>
+            </div>
           </div>
         )}
       </div>
